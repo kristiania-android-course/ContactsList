@@ -1,3 +1,5 @@
 /app/app.iml
 /ContentProviderExample.iml
 /local.properties
+/.idea/
+/.gradle/
