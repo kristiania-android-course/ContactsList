@@ -12,12 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <provider
-            android:name=".provider.StudentContentProvider"
-            android:authorities="no.kristiania.android.contentproviderexample.provider.StudentContentProvider"
-            />
-
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".ui.ContactsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
