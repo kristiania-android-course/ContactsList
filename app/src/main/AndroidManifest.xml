@@ -11,7 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ContactsActivity">
+
+        <provider
+            android:name=".provider.StudentContentProvider"
+            android:authorities="no.kristiania.android.contentproviderexample.provider.StudentContentProvider"
+            />
+
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -48,6 +48,26 @@ class StudentDAO(context: Context) : BaseDataBase(context) {
             null,
             null
         )
+        return cursorToList(cursor)
+    }
+
+    // Fetch all the records from the database
+    fun fetchAllRecodeAsCursor(): Cursor {
+
+        return readableDatabase.query(
+            StudentTable.TABLE_NAME,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        )
+    }
+
+    private fun cursorToList(
+        cursor: Cursor
+    ): MutableList<Student> {
         val studentList = mutableListOf<Student>()
         with(cursor) {
             while (moveToNext()) {

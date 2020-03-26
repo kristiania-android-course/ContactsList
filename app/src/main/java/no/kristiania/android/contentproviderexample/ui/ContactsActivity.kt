@@ -1,4 +1,4 @@
-package no.kristiania.android.contentproviderexample
+package no.kristiania.android.contentproviderexample.ui
 
 import android.database.Cursor
 import android.os.Bundle
@@ -9,7 +9,8 @@ import androidx.loader.app.LoaderManager
 import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
 import androidx.recyclerview.widget.GridLayoutManager
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_contacts.*
+import no.kristiania.android.contentproviderexample.R
 
 
 class ContactsActivity : AppCompatActivity() {
@@ -53,13 +54,16 @@ class ContactsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_contacts)
 
-        adapter = ContactAdapter(this, mutableListOf()) {
+        adapter = ContactAdapter(
+            this,
+            mutableListOf()
+        ) {
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         }
-        students_recycler_view.layoutManager = GridLayoutManager(this, 1)
-        students_recycler_view.adapter = adapter
+        contacts_recycler_view.layoutManager = GridLayoutManager(this, 1)
+        contacts_recycler_view.adapter = adapter
 
         // Initialize the loader with a special ID and the defined callbacks from above
         // Initialize the loader with a special ID and the defined callbacks from above

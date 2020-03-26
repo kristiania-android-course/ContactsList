@@ -1,13 +1,12 @@
-package no.kristiania.android.contentproviderexample
+package no.kristiania.android.contentproviderexample.ui
 
 import android.content.Context
-import android.database.Cursor
-import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.student_item.view.*
+import no.kristiania.android.contentproviderexample.R
 
 
 /**
@@ -29,7 +28,10 @@ class ContactAdapter(val context: Context,
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.student_item, null)
-        val holder = ContactAdapter.ContactViewHolder(view)
+        val holder =
+            ContactViewHolder(
+                view
+            )
         holder.itemView.setOnClickListener {
             clickLambda(list[holder.adapterPosition])
         }
