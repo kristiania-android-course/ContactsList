@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var loaderManagerInstance: LoaderManager
     private lateinit var adapter: StudentAdapter
-    private val contactsLoader: LoaderManager.LoaderCallbacks<Cursor> = object : LoaderManager.LoaderCallbacks<Cursor> {
+    private val studentLoader: LoaderManager.LoaderCallbacks<Cursor> = object : LoaderManager.LoaderCallbacks<Cursor> {
         override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor> {
 
             val projectionFields = arrayOf(
@@ -69,10 +69,7 @@ class MainActivity : AppCompatActivity() {
             mutableListOf()
         ) {
             Toast.makeText(this, it.name, Toast.LENGTH_SHORT).show()
-            // Intent to open new activity and pass student id
-            /*val intent = Intent(this, StudentDetailsActivity::class.java)
-            intent.putExtra("studentID", it.id)
-            startActivity(intent)*/
+
         }
 
         students_recycler_view.layoutManager = GridLayoutManager(this, 1)
@@ -94,7 +91,7 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(getBaseContext(),
                 uri.toString(), Toast.LENGTH_LONG).show();
 
-            loaderManagerInstance.restartLoader(11, Bundle.EMPTY, contactsLoader)
+            loaderManagerInstance.restartLoader(222, Bundle.EMPTY, studentLoader)
 
             /*// Get value from the edit text (edit_name)
             val name = edit_name.text.toString()
@@ -105,7 +102,7 @@ class MainActivity : AppCompatActivity() {
 */
         }
 
-        loaderManagerInstance.initLoader(11, Bundle.EMPTY, contactsLoader)
+        loaderManagerInstance.initLoader(11, Bundle.EMPTY, studentLoader)
 
 
     }

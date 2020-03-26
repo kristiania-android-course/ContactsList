@@ -21,12 +21,15 @@ import java.lang.IllegalArgumentException
 class StudentContentProvider : ContentProvider(){
 
     private lateinit var studentDAO: StudentDAO
-    private val Get_Data = 1
+
+
+    private val Get_All_Data = 1
+    private val Get_Single_Data: Int = 2
 
 
     companion object {
         private const val AUTHORITY = "no.kristiania.android.contentproviderexample.provider.StudentContentProvider"
-        val URL = "content://$AUTHORITY/students"
+        val URL = "content://$AUTHORITY/STUDENT_TABLE"
         val CONTENT_URI = Uri.parse(URL)
     }
 
@@ -37,17 +40,13 @@ class StudentContentProvider : ContentProvider(){
          */
 
         /*
-         * Sets the integer value for multiple rows in table 3 to 1. Notice that no wildcard is used
+         * Sets the integer value for multiple rows in STUDENT_TABLE to 1. Notice that no wildcard is used
          * in the path
          */
-        addURI("no.kristiania.android.contentproviderexample.provider.StudentContentProvider", "STUDENT_TABLE", Get_Data)
+        addURI("no.kristiania.android.contentproviderexample.provider.StudentContentProvider", "STUDENT_TABLE", Get_All_Data)
+        //addURI("no.kristiania.android.contentproviderexample.provider.StudentContentProvider", "STUDENT_TABLE/#", Get_Single_Data)
 
-        /*
-         * Sets the code for a single row to 2. In this case, the "#" wildcard is
-         * used. "content://com.example.app.provider/table3/3" matches, but
-         * "content://com.example.app.provider/table3 doesn't.
-         */
-        //addURI("com.example.app.provider", "STUDENT_TABLE/#", 2)
+
     }
 
     override fun insert(uri: Uri, values: ContentValues?): Uri? {
@@ -66,7 +65,21 @@ class StudentContentProvider : ContentProvider(){
         selectionArgs: Array<out String>?,
         sortOrder: String?
     ): Cursor? {
-        return studentDAO.fetchAllRecodeAsCursor()
+        val type = sUriMatcher.match(uri)
+
+        return when (type) {
+            Get_All_Data -> {
+                studentDAO.fetchAllRecodeAsCursor()
+            }
+            Get_Single_Data -> {
+                uri.lastPathSegment?.toLong()?.let {
+                    studentDAO.getRecordWithID(it)
+                }
+            }
+            else -> {
+                null
+            }
+        }
     }
 
     override fun onCreate(): Boolean {

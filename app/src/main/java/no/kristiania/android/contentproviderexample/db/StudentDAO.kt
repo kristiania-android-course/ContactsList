@@ -37,21 +37,6 @@ class StudentDAO(context: Context) : BaseDataBase(context) {
     }
 
     // Fetch all the records from the database
-    fun fetchAllRecord(): List<Student> {
-
-        val cursor: Cursor = readableDatabase.query(
-            StudentTable.TABLE_NAME,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-        )
-        return cursorToList(cursor)
-    }
-
-    // Fetch all the records from the database
     fun fetchAllRecodeAsCursor(): Cursor {
 
         return readableDatabase.query(
@@ -65,21 +50,7 @@ class StudentDAO(context: Context) : BaseDataBase(context) {
         )
     }
 
-    private fun cursorToList(
-        cursor: Cursor
-    ): MutableList<Student> {
-        val studentList = mutableListOf<Student>()
-        with(cursor) {
-            while (moveToNext()) {
-                val id = getLong(getColumnIndexOrThrow(StudentTable.COLUMN_ID))
-                val name = getString(getColumnIndexOrThrow(StudentTable.COLUMN_NAME))
-                studentList.add(Student(id, name))
-            }
-        }
-        return studentList
-    }
-
-    fun getRecordWithID(studentID: Long): Student {
+    fun getRecordWithID(studentID: Long): Cursor {
         // where clause to use
         val selection = "${StudentTable.COLUMN_ID} = ?"
 
@@ -96,6 +67,10 @@ class StudentDAO(context: Context) : BaseDataBase(context) {
             null
         )
 
+        return cursor
+    }
+
+    private fun singleItemFromCursor(cursor: Cursor): Student {
         return with(cursor) {
             moveToFirst()
             // Please see the cursor documentation for these methods
