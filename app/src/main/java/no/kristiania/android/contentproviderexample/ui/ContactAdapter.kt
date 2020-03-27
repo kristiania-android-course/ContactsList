@@ -51,5 +51,6 @@ class ContactAdapter(val context: Context,
         this.list.clear()
         this.list.addAll(list)
         notifyDataSetChanged()
+
     }
 }
